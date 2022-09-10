@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Zed Tourer</string>
+    <string name="no_image">No Image</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="str_get_started">GET STARTED</string>
+    <string name="str_skip">SKIP</string>
+
+
+</resources>
