@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="people_images">
+        <item>@drawable/ic_person</item>
+        <item>@drawable/ic_person</item>
+    </integer-array>
+
+    <string-array name="people_names">
+        <item>Hope Mutale</item>
+        <item>William Chansa</item>
+    </string-array>
+
+    <string-array name="people_numbers">
+        <item>0962033348</item>
+        <item>0700078866</item>
+    </string-array>
+
+</resources>

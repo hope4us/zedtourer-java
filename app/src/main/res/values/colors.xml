@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorPrimaryLight">#1E88E5</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccentDark">#F50057</color>
+    <color name="colorAccentLight">#FF80AB</color>
+
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#3ca7f3</color>
     <color name="purple_700">#3ca7f3</color>
@@ -15,10 +20,33 @@
     <color name="grey_5">#f2f2f2</color>
     <color name="grey_20">#cccccc</color>
     <color name="grey_60">#666666</color>
+    <color name="grey_90">#263238</color>
+    <color name="light_green_500">#8BC34A</color>
+    <color name="yellow_600">#FDD835</color>
     <color name="overlay_dark_30">#4D000000</color>
+    <color name="purple_400">#AB47BC</color>
+    <color name="blue_400">#42A5F5</color>
+    <color name="indigo_300">#7986CB</color>
+    <color name="green_500">#4CAF50</color>
+    <color name="light_green_400">#9CCC65</color>
+    <color name="orange_300">#FFB74D</color>
+    <color name="cyan_300">#4DD0E1</color>
+    <color name="teal_500">#009688</color>
+    <color name="deep_orange_300">#FF8A65</color>
+    <color name="blue_grey_400">#78909C</color>
+    <color name="green_400">#66BB6A</color>
+    <color name="orange_500">#FF9800</color>
+    <color name="indigo_900">#1A237E</color>
+    <color name="light_blue_100">#B3E5FC</color>
+    <color name="overlay_dark_10">#1A000000</color>
+    <color name="overlay_light_30">#4DFFFFFF</color>
+    <color name="overlay_dark_50">#80000000</color>
 
 
     <color name="zed_main">#0f91ed</color>
     <color name="zed_light">#3ca7f3</color>
+    <color name="colorPrimaryDark">#3ca7f3</color>
+    <color name="colorPrimary">#3ca7f3</color>
+
 
 </resources>
