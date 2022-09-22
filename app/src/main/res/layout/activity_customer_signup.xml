@@ -48,66 +48,67 @@
 
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilCustomerName"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/colorPrimaryDark">
 
-                        <AutoCompleteTextView
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tieCustomerName"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Full Names"
-                            android:inputType="text"
-                            android:maxLines="1"
-                            android:singleLine="true" />
+                            android:layout_height="match_parent"
+                            android:hint="@string/str_title_customer_names"
+                            android:inputType="textCapCharacters"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/colorPrimaryDark" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilPhone"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/colorPrimaryDark">
 
-                        <AutoCompleteTextView
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tiePhone"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Phone"
-                            android:inputType="text"
-                            android:maxLines="1"
-                            android:singleLine="true" />
+                            android:layout_height="match_parent"
+                            android:hint="@string/str_title_phone"
+                            android:inputType="textCapCharacters"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/colorPrimaryDark" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilPassword"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/colorPrimaryDark">
 
-                        <EditText
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tiePassword"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Password"
-                            android:inputType="textPassword"
-                            android:maxLines="1"
-                            android:singleLine="true" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Re-type Password"
-                            android:inputType="textPassword"
-                            android:maxLines="1"
-                            android:singleLine="true" />
+                            android:layout_height="match_parent"
+                            android:hint="@string/str_title_password"
+                            android:inputType="textCapCharacters"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/colorPrimaryDark" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/spacing_middle"
                         android:layout_marginTop="@dimen/spacing_middle"
+                        android:layout_marginBottom="@dimen/spacing_middle"
                         android:orientation="vertical">
 
                         <TextView
@@ -130,8 +131,8 @@
                                 android:id="@+id/radio_female"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Female"
                                 android:checked="true"
+                                android:text="Male"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/grey_90" />
 
@@ -143,7 +144,7 @@
                                 android:id="@+id/radio_male"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Male"
+                                android:text="Female"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/grey_90" />
 

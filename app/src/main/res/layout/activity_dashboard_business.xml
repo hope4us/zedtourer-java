@@ -26,10 +26,10 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:contentInsetStartWithNavigation="0dp"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:subtitle="Administrator"
+            app:subtitle="Business Name"
             app:subtitleTextAppearance="@style/Base.TextAppearance.AppCompat.Caption"
             app:subtitleTextColor="@color/grey_10"
-            app:title="Hi, John Mulenga" />
+            app:title="Hi, User" />
 
     </RelativeLayout>
 
@@ -200,6 +200,7 @@
                             <com.google.android.material.floatingactionbutton.FloatingActionButton
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:id="@+id/fabProducts"
                                 android:clickable="true"
                                 app:tint="@android:color/white"
                                 app:backgroundTint="@color/purple_400"
@@ -228,6 +229,7 @@
                             <com.google.android.material.floatingactionbutton.FloatingActionButton
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:id="@+id/fabCashiers"
                                 android:clickable="true"
                                 app:tint="@android:color/white"
                                 app:backgroundTint="@color/blue_400"
@@ -267,6 +269,7 @@
                             <com.google.android.material.floatingactionbutton.FloatingActionButton
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:id="@+id/fabBusinessProfile"
                                 android:clickable="true"
                                 app:tint="@android:color/white"
                                 app:backgroundTint="@color/indigo_300"
@@ -296,6 +299,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:clickable="true"
+                                android:id="@+id/fabSettngs"
                                 app:tint="@android:color/white"
                                 app:backgroundTint="@color/green_500"
                                 app:elevation="0dp"
@@ -323,6 +327,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:clickable="true"
+                                android:id="@+id/fabLogout"
                                 app:tint="@android:color/white"
                                 app:backgroundTint="@color/light_green_400"
                                 app:elevation="0dp"

@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Build;
@@ -20,6 +22,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class OnboardActivity extends AppCompatActivity {
@@ -58,6 +63,57 @@ public class OnboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onboard);
+
+        SharedPreferences sharedpreferences = getSharedPreferences("userPrefs", Context.MODE_PRIVATE);
+        if (sharedpreferences == null) {
+            Intent i = new Intent(OnboardActivity.this, LoginActivity.class);
+            startActivity(i);
+            finish();
+        } else {
+            String user = sharedpreferences.getString("user", "");
+            if (user.equals("")) {
+                Intent i = new Intent(OnboardActivity.this, LoginActivity.class);
+                startActivity(i);
+                finish();
+            } else {
+                JSONObject userObj = null;
+                try {
+                    userObj = new JSONObject(user);
+                    int userType = userObj.getInt("userType");
+                    Intent i;
+                    switch (userType) {
+
+                        case 1:
+                             i = new Intent(OnboardActivity.this, DashboardBusinessActivity.class);
+                            startActivity(i);
+                            finish();
+                            break;
+
+                        case 2:
+                             i = new Intent(OnboardActivity.this, DashboardCustomerActivity.class);
+                            startActivity(i);
+                            finish();
+                            break;
+
+                        case 3:
+                            i = new Intent(OnboardActivity.this, DashboardCashierActivity.class);
+                            startActivity(i);
+                            finish();
+                            break;
+
+                        default:
+                            i = new Intent(OnboardActivity.this, LoginActivity.class);
+                            startActivity(i);
+                            finish();
+                            break;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+
 
         initComponent();
 

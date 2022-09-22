@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -47,124 +48,29 @@
                     android:orientation="vertical">
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilBusinessName"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/colorPrimaryDark">
 
-                        <AutoCompleteTextView
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tieBusinessName"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Business Name"
-                            android:inputType="text"
-                            android:maxLines="1"
-                            android:singleLine="true" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <AutoCompleteTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Category"
-                            android:inputType="text"
-                            android:maxLines="1"
-                            android:singleLine="true" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <AutoCompleteTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Products and Services Offered"
-                            android:inputType="text"
-                            android:maxLines="1"
-                            android:singleLine="true" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <AutoCompleteTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Location"
-                            android:inputType="text"
-                            android:maxLines="1"
-                            android:singleLine="true" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <AutoCompleteTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Owner Name"
-                            android:inputType="text"
-                            android:maxLines="1"
-                            android:singleLine="true" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <AutoCompleteTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Phone"
-                            android:inputType="text"
-                            android:maxLines="1"
-                            android:singleLine="true" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Password"
-                            android:inputType="textPassword"
-                            android:maxLines="1"
-                            android:singleLine="true" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Re-type Password"
-                            android:inputType="textPassword"
-                            android:maxLines="1"
-                            android:singleLine="true" />
+                            android:layout_height="match_parent"
+                            android:hint="@string/str_title_business_name"
+                            android:inputType="textCapCharacters"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/colorPrimaryDark" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/spacing_middle"
                         android:layout_marginTop="@dimen/spacing_middle"
+                        android:layout_marginBottom="@dimen/spacing_middle"
                         android:orientation="vertical">
 
                         <TextView
@@ -172,41 +78,118 @@
                             android:layout_height="wrap_content"
                             android:paddingLeft="@dimen/spacing_medium"
                             android:paddingRight="@dimen/spacing_medium"
-                            android:text="Gender"
+                            android:text="@string/str_products_services"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                            android:textColor="@color/grey_90" />
+                            android:textColor="@color/zed_light" />
 
-                        <RadioGroup
-                            android:id="@+id/gender"
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/cgProductCategories"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/spacing_medium"
-                            android:orientation="horizontal">
+                            android:layout_height="match_parent"
+                            android:padding="5dp"
+                            app:singleSelection="false">
 
-                            <androidx.appcompat.widget.AppCompatRadioButton
-                                android:id="@+id/radio_female"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Female"
-                                android:checked="true"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                                android:textColor="@color/grey_90" />
-
-                            <View
-                                android:layout_width="@dimen/spacing_mlarge"
-                                android:layout_height="0dp" />
-
-                            <androidx.appcompat.widget.AppCompatRadioButton
-                                android:id="@+id/radio_male"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Male"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                                android:textColor="@color/grey_90" />
-
-                        </RadioGroup>
+                        </com.google.android.material.chip.ChipGroup>
 
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_middle"
+                        android:layout_marginBottom="@dimen/spacing_middle"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/spacing_medium"
+                            android:paddingRight="@dimen/spacing_medium"
+                            android:text="@string/str_title_coordinates"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/zed_light" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/spacing_medium"
+                            android:paddingRight="@dimen/spacing_medium"
+                            android:text="@string/str_default_coordinates"/>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/spacing_large"
+                            android:gravity="left"
+                            android:orientation="horizontal">
+                            <Button
+                                android:id="@+id/bOpenMap"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/str_title_open_map"
+                                 />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilOwnerName"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/colorPrimaryDark">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tieOwnerName"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="@string/str_title_business_owner_name"
+                            android:inputType="textCapCharacters"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/colorPrimaryDark" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilPhone"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/colorPrimaryDark">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tiePhone"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="@string/str_title_phone"
+                            android:inputType="textCapCharacters"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/colorPrimaryDark" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilPassword"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/colorPrimaryDark">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tiePassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="@string/str_title_password"
+                            android:inputType="textCapCharacters"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/colorPrimaryDark" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
 
                     <Button
                         android:id="@+id/bRegisterBusiness"
@@ -216,9 +199,6 @@
                         android:background="@drawable/btn_rounded_accent"
                         android:text="REGISTER"
                         android:textColor="@android:color/white" />
-
-
-
                 </LinearLayout>
 
             </RelativeLayout>

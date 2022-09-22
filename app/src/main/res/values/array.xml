@@ -15,4 +15,40 @@
         <item>0700078866</item>
     </string-array>
 
+    <integer-array name="shop_product_image">
+        <item>@drawable/image_shop_1</item>
+        <item>@drawable/image_shop_2</item>
+        <item>@drawable/image_shop_3</item>
+        <item>@drawable/image_shop_4</item>
+        <item>@drawable/image_shop_5</item>
+
+        <item>@drawable/image_shop_6</item>
+        <item>@drawable/image_shop_7</item>
+        <item>@drawable/image_shop_8</item>
+    </integer-array>
+
+    <string-array name="shop_product_title">
+        <item>Fashion B07 Keara 933</item>
+        <item>Coup Hoodie Jacket</item>
+        <item>Gala Suede Jacket Flower</item>
+        <item>Qonnoq Checked Blouse</item>
+        <item>Java Seven Belladji 674</item>
+
+        <item>Kanvas Sneaker Shoes</item>
+        <item>Clarks Idamarie Faye Lea</item>
+        <item>Piero Rush Women</item>
+    </string-array>
+
+    <string-array name="shop_product_price">
+        <item>$ 48.90</item>
+        <item>$ 89.00</item>
+        <item>$ 66.80</item>
+        <item>$ 34.50</item>
+        <item>$ 44.90</item>
+
+        <item>$ 59.00</item>
+        <item>$ 78.20</item>
+        <item>$ 96.00</item>
+    </string-array>
+
 </resources>

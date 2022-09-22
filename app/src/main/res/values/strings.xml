@@ -24,6 +24,39 @@
     <string name="str_make_payment">Make Payment</string>
     <string name="str_complete">COMPLETE</string>
     <string name="str_pending">PENDING</string>
+    <string name="str_success">Success!</string>
+    <string name="str_order_success">Your order has been placed. You can pay for the order once it has been accepted.</string>
+    <string name="str_cashier_title">Cashier</string>
+    <string name="str_cashier_name">Jennifer Mwanza</string>
+    <string name="str_cashier_number">0700118233</string>
+    <string name="str_title_orders">Payments</string>
+    <string name="str_orders_number">120</string>
+    <string name="str_title_payments">Payments</string>
+    <string name="str_payments_amount">ZMW 1,740</string>
+    <string name="str_cashier_address">Plot 0784, Northmead, Lusaka</string>
+    <string name="str_customer_address">House No.988, Kabulonga, Lusaka</string>
+    <string name="str_business_name">Zed Tourer</string>
+    <string name="str_business_website">www.zedtourer.com</string>
+    <string name="str_business_owner_name">Jackson Mwila</string>
+    <string name="str_business_owner_phone">0700899284</string>
+    <string name="str_location">Lusaka</string>
+    <string name="str_business_owner">Business Owner</string>
+    <string name="str_title_business_details">Business Details</string>
+    <string name="str_title_business_name">Business Name</string>
+    <string name="str_title_business_owner_name">Owner Name</string>
+    <string name="str_title_password">Password</string>
+    <string name="str_title_phone">Phone</string>
+
+    <string name="str_business_address">Room 45, Suite T, Levy Complex, Lusaka</string>
+
+    <string name="str_full_names">Full Names</string>
+    <string name="str_title_coordinates">Location Coordinates</string>
+    <string name="str_title_open_map">OPEN MAP</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="str_default_coordinates">-15.390113, 28.322519</string>
+    <string name="str_title_customer_names">Customer Names</string>
+    <string name="str_blank_cashiers">There are no cashiers available at the moment. \nTap the add icon at the bottom to add a cashier</string>
+    <string name="str_title_sort">Sort</string>
 
 
 </resources>

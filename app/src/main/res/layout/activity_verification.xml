@@ -69,6 +69,7 @@
                 <androidx.appcompat.widget.AppCompatEditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:id="@+id/num1"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:inputType="number"
@@ -86,6 +87,7 @@
                 <androidx.appcompat.widget.AppCompatEditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:id="@+id/num2"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:inputType="number"
@@ -103,6 +105,7 @@
                 <androidx.appcompat.widget.AppCompatEditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:id="@+id/num3"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:inputType="number"
@@ -120,6 +123,7 @@
                 <androidx.appcompat.widget.AppCompatEditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:id="@+id/num4"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:inputType="number"
@@ -129,8 +133,22 @@
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                     android:textColor="@color/grey_90"
                     android:textStyle="bold" />
+
 
             </LinearLayout>
+
+            <TextView
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvWrongCode"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:textStyle="italic"
+                android:textSize="12sp"
+                android:visibility="gone"
+                android:text="Wrong verification code entered. Please re-enter verification code"
+                android:gravity="center"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                android:textColor="@color/red" />
 
             <androidx.appcompat.widget.AppCompatButton
                 style="@style/Widget.AppCompat.Button.Borderless"
@@ -140,6 +158,16 @@
                 android:gravity="center"
                 android:text="VERIFY"
                 android:textColor="@color/colorPrimaryDark" />
+            <TextView
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:textStyle="italic"
+                android:textSize="14sp"
+                android:text="NOTE: In the prototype version you are required to ONLY enter 7788 to verify account"
+                android:gravity="center"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                android:textColor="@color/grey_60" />
 
         </LinearLayout>
 

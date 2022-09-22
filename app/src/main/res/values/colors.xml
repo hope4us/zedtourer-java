@@ -47,6 +47,8 @@
     <color name="zed_light">#3ca7f3</color>
     <color name="colorPrimaryDark">#3ca7f3</color>
     <color name="colorPrimary">#3ca7f3</color>
+    <color name="red">#F31E1E</color>
+
 
 
 </resources>
