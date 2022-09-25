@@ -131,6 +131,20 @@ public class Tools {
         }
     }
 
+    public static void displayImageRoundUrl(final Context ctx, final ImageView img, String url) {
+        try {
+            Glide.with(ctx).load(url).asBitmap().centerCrop().into(new BitmapImageViewTarget(img) {
+                @Override
+                protected void setResource(Bitmap resource) {
+                    RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(ctx.getResources(), resource);
+                    circularBitmapDrawable.setCircular(true);
+                    img.setImageDrawable(circularBitmapDrawable);
+                }
+            });
+        } catch (Exception e) {
+        }
+    }
+
     public static void displayImageOriginal(Context ctx, ImageView img, String url) {
         try {
             Glide.with(ctx).load(url)

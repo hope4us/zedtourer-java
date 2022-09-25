@@ -9,7 +9,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
-import com.sakilahomes.client.application.ShrineApplication;
+import com.appbuildersworld.zedtourerjava.application.ShrineApplication;
 
 /**
  * Class that handles image requests using Volley.

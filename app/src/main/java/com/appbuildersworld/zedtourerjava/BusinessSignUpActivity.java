@@ -381,43 +381,6 @@ public class BusinessSignUpActivity extends AppCompatActivity {
         return chip;
     }
 
-    /*private Chip addChip(int categoryId, String categoryName) {
-        Chip chip = new Chip(this, null, R.style.Widget_Material3_Chip_Filter);
-        chip.setText(categoryName);
-        chip.setChipBackgroundColorResource(R.color.zed_light);
-        chip.setTextColor(getResources().getColor(R.color.white));
-        chip.setId(ViewCompat.generateViewId());
-        chip.setChipIconResource(R.drawable.ic_baseline_check_24);
-        chip.setChipIconTintResource(R.color.white);
-        chip.setChipIconVisible(View.GONE);
-        chip.setCloseIconTintResource(R.color.white);
-        chip.setOnCloseIconClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                chip.setChipIconVisible(false);
-                chip.setCloseIconVisible(false);
-            }
-        });
-
-
-        chip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (productSelection.contains(categoryId)) {
-                    productSelection.remove(categoryId);
-                } else {
-                    chip.setChipBackgroundColorResource(R.color.green_400);
-                    chip.setChipIconVisible(true);
-                    chip.setCloseIconVisible(true);
-                    productSelection.add(categoryId);
-                }
-                Log.d("NNN", "Selection Size: " + productSelection.size());
-
-            }
-        });
-        return chip;
-    }*/
-
     private void showErrorDialog(final Exception e) {
         globalErrorDialog.showResponseDialog("An error occurred. Please try again or contact support if error persists.", "Try again");
         globalErrorDialog.enableResponseViewBtn();

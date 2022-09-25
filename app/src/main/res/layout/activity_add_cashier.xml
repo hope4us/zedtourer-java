@@ -48,14 +48,14 @@
 
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilCustomerName"
+                        android:id="@+id/tilCashierName"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColorHint="@color/colorPrimaryDark">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/tieCustomerName"
+                            android:id="@+id/tieCashierName"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:hint="@string/str_title_customer_names"
@@ -85,43 +85,6 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilConfirmPassword"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColorHint="@color/colorPrimaryDark">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/tieConfirmPassword"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:hint="@string/str_title_password"
-                            android:inputType="textCapCharacters"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
-                            android:textColor="@color/black"
-                            android:textColorHint="@color/colorPrimaryDark" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilPassword"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColorHint="@color/colorPrimaryDark">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/tiePassword"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:hint="@string/confirm_password"
-                            android:inputType="textCapCharacters"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
-                            android:textColor="@color/black"
-                            android:textColorHint="@color/colorPrimaryDark" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -172,7 +135,7 @@
                     </LinearLayout>
 
                     <Button
-                        android:id="@+id/bRegisterCustomer"
+                        android:id="@+id/bRegisterCashier"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_large"

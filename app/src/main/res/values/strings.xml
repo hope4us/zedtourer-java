@@ -29,8 +29,8 @@
     <string name="str_cashier_title">Cashier</string>
     <string name="str_cashier_name">Jennifer Mwanza</string>
     <string name="str_cashier_number">0700118233</string>
-    <string name="str_title_orders">Payments</string>
-    <string name="str_orders_number">120</string>
+    <string name="str_title_orders">Total Orders</string>
+    <string name="str_orders_number">0</string>
     <string name="str_title_payments">Payments</string>
     <string name="str_payments_amount">ZMW 1,740</string>
     <string name="str_cashier_address">Plot 0784, Northmead, Lusaka</string>
@@ -45,6 +45,7 @@
     <string name="str_title_business_name">Business Name</string>
     <string name="str_title_business_owner_name">Owner Name</string>
     <string name="str_title_password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
     <string name="str_title_phone">Phone</string>
 
     <string name="str_business_address">Room 45, Suite T, Levy Complex, Lusaka</string>
@@ -55,8 +56,17 @@
     <string name="title_activity_maps">MapsActivity</string>
     <string name="str_default_coordinates">-15.390113, 28.322519</string>
     <string name="str_title_customer_names">Customer Names</string>
-    <string name="str_blank_cashiers">There are no cashiers available at the moment. \nTap the add icon at the bottom to add a cashier</string>
+    <string name="str_blank_cashiers">There are no cashiers available at this time. \nTap the add icon at the bottom to add a cashier</string>
     <string name="str_title_sort">Sort</string>
+    <string name="str_title_delete_account">Delete Account</string>
+    <string name="str_title_gender">Gender</string>
+    <string name="str_gender">Select Gender</string>
+    <string name="str_title_login_failed">Login Failed</string>
+    <string name="str_msg_login_failed">Check your number or password</string>
+    <string name="confirm_account">Confirm Account</string>
+    <string name="account_confirmation">Account Confirmation</string>
+    <string name="cashier_new_password">Enter a new password here</string>
+    <string name="cashier_number">Registered number</string>
 
 
 </resources>

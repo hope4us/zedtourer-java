@@ -337,12 +337,15 @@ public class ProductsAdminActivity extends AppCompatActivity {
                 }
 
                 if (currentCategoryName.equals("Food")) {
+                    Log.d("NNN", "Adding food");
                     adapter.addFragment(FragmentFoodGrid.newInstance(foodList), productCategories.getJSONObject(i).getString("categoryName"));
                 }
                 if (currentCategoryName.equals("Drink (Non-Alcoholic)")) {
+                    Log.d("NNN", "Adding non alcohol drinks");
                     adapter.addFragment(FragmentDrinkGrid.newInstance(nonAlcList), productCategories.getJSONObject(i).getString("categoryName"));
                 }
                 if (currentCategoryName.equals("Drink (Alcoholic)")) {
+                    Log.d("NNN", "Adding alcohol drinks");
                     adapter.addFragment(FragmentDrinkAlcGrid.newInstance(alcList), productCategories.getJSONObject(i).getString("categoryName"));
                 }
             }
@@ -401,6 +404,7 @@ public class ProductsAdminActivity extends AppCompatActivity {
         }
 
         public void addFragment(Fragment fragment, String title) {
+
             mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
         }

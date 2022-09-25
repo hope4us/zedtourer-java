@@ -2,28 +2,29 @@ package com.appbuildersworld.zedtourerjava.models;
 
 import java.io.Serializable;
 
-public class MCustomer implements Serializable {
-    private int customerId;
-    private String customerNames;
+public class MCashier implements Serializable {
+    private int cashierId;
+    private String cashierNames;
     private String phone;
     private String gender;
     private String password;
+    private int businessId;
     private String imageUrl;
 
-    public int getCustomerId() {
-        return customerId;
+    public int getCashierId() {
+        return cashierId;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
+    public void setCashierId(int cashierId) {
+        this.cashierId = cashierId;
     }
 
-    public String getCustomerNames() {
-        return customerNames;
+    public String getCashierNames() {
+        return cashierNames;
     }
 
-    public void setCustomerNames(String customerNames) {
-        this.customerNames = customerNames;
+    public void setCashierNames(String cashierNames) {
+        this.cashierNames = cashierNames;
     }
 
     public String getPhone() {
@@ -48,6 +49,14 @@ public class MCustomer implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getBusinessId() {
+        return businessId;
+    }
+
+    public void setBusinessId(int businessId) {
+        this.businessId = businessId;
     }
 
     public String getImageUrl() {

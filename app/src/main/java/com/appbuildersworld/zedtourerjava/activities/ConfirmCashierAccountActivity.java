@@ -1,31 +1,32 @@
-package com.appbuildersworld.zedtourerjava;
+package com.appbuildersworld.zedtourerjava.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.appbuildersworld.zedtourerjava.CashierActivity;
+import com.appbuildersworld.zedtourerjava.CashierDashboardActivity;
+import com.appbuildersworld.zedtourerjava.DashboardBusinessActivity;
+import com.appbuildersworld.zedtourerjava.R;
 import com.appbuildersworld.zedtourerjava.connectivity.Constant;
 import com.appbuildersworld.zedtourerjava.interfaces.RetrofitInterface;
-import com.appbuildersworld.zedtourerjava.models.MBusiness;
-import com.appbuildersworld.zedtourerjava.models.MProductCategory;
-import com.appbuildersworld.zedtourerjava.models.MUser;
 import com.appbuildersworld.zedtourerjava.ui.ProcessDialog;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Response;
@@ -33,7 +34,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-public class LoginActivity extends AppCompatActivity {
+public class ConfirmCashierAccountActivity extends AppCompatActivity {
 
     private ProcessDialog connectionFailureDialog;
     private ProcessDialog globalErrorDialog;
@@ -43,14 +44,28 @@ public class LoginActivity extends AppCompatActivity {
 
     private TextInputEditText tieUsername;
     private TextInputEditText tiePassword;
+    private TextInputEditText tieConfirmPassword;
     private Button bSignIn;
-    private TextView bBusinessSignUp;
-    private TextView bCustomerSignUp;
+
+    private int userId;
+    private int cashierId;
+    private String phone;
+
+    private View parent_view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_confirm_cashier_account);
+
+        parent_view = findViewById(android.R.id.content);
+
+        Intent i = getIntent();
+        phone = i.getStringExtra("phone");
+        userId = i.getIntExtra("userId", 0);
+        cashierId = i.getIntExtra("cashierId", 0);
+
+        Log.d("NNN", "Confirm User ID: " + userId);
 
         authenticatePDialog = new ProcessDialog(this);
         authenticatePDialog.setTouchCancel(false);
@@ -59,47 +74,47 @@ public class LoginActivity extends AppCompatActivity {
         globalErrorDialog = new ProcessDialog(this);
 
         tieUsername = (TextInputEditText) findViewById(R.id.tieUsername);
+        tieUsername.setText(phone);
         tiePassword = (TextInputEditText) findViewById(R.id.tiePassword);
+        tieConfirmPassword = (TextInputEditText) findViewById(R.id.tieConfirmPassword);
+
 
         bSignIn = (Button) findViewById(R.id.bSignIn);
         bSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                JSONObject jCredentials = new JSONObject();
-                try {
-                    jCredentials.put("username", tieUsername.getText().toString());
-                    jCredentials.put("password", tiePassword.getText().toString());
 
-                    authenticate(jCredentials.toString());
+                String password = tiePassword.getText().toString().trim();
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
+               if (password.isEmpty()) {
+                    tiePassword.requestFocus();
+                    tiePassword.setError("Password is empty");
+                }else if(!tiePassword.getText().toString().equals(tieConfirmPassword.getText().toString())){
+                    Snackbar.make(parent_view, "Passwords don't match!", Snackbar.LENGTH_SHORT).show();
+                } else{
+
+                   Log.d("NNN", "User ID: " + userId);
+                   Log.d("NNN", "Cashier ID: " + cashierId);
+                   Log.d("NNN", "Password: " + tiePassword.getText().toString());
+
+                    JSONObject jCredentials = new JSONObject();
+                    try {
+                        jCredentials.put("userId", userId);
+                        jCredentials.put("cashierId", cashierId);
+                        jCredentials.put("password", tiePassword.getText().toString());
+
+                        confirmCashiherAccount(jCredentials.toString());
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
 
             }
         });
-
-        bBusinessSignUp = findViewById(R.id.bBusinessSignUp);
-        bBusinessSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(LoginActivity.this, BusinessSignUpActivity.class);
-                startActivity(i);
-            }
-        });
-
-        bCustomerSignUp = findViewById(R.id.bCustomerSignUp);
-        bCustomerSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(LoginActivity.this, CustomerSignupActivity.class);
-                startActivity(i);
-            }
-        });
-
     }
 
-    private void authenticate(String json) {
+    private void confirmCashiherAccount(String json) {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constant.baseURL)
@@ -107,15 +122,15 @@ public class LoginActivity extends AppCompatActivity {
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .build();
         final RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
-        final retrofit2.Call authenticateCall = retrofitInterface.authenticate(json);
-        authenticatePDialog.showProcessingDialog("Authenticating user.. Please wait..");
+        final retrofit2.Call remoteCall = retrofitInterface.confirmCashierAccount(json);
+        authenticatePDialog.showProcessingDialog("Confirming Account.. Please wait..");
 
         authenticatePDialog.setOnCloseDialogListener(new ProcessDialog.CloseDialogClickListener() {
             @Override
             public void onCloseDialogClick() {
                 authenticatePDialog.setCancelable(true);
                 authenticatePDialog.dismissDialog();
-                authenticateCall.cancel();
+                remoteCall.cancel();
 
             }
         });
@@ -124,11 +139,11 @@ public class LoginActivity extends AppCompatActivity {
             public void onBackPressedClick() {
                 authenticatePDialog.setCancelable(true);
                 authenticatePDialog.dismissDialog();
-                authenticateCall.cancel();
+                remoteCall.cancel();
             }
         });
 
-        authenticateCall.enqueue(new retrofit2.Callback<ResponseBody>() {
+        remoteCall.enqueue(new retrofit2.Callback<ResponseBody>() {
             @Override
             public void onResponse(retrofit2.Call<ResponseBody> classCall, final Response<ResponseBody> netResponse) {
 
@@ -158,48 +173,23 @@ public class LoginActivity extends AppCompatActivity {
 
                             JSONObject messageObj = responseJObject.getJSONObject("message");
                             JSONObject userObj = messageObj.getJSONObject("user");
-
                             int userType = userObj.getInt("userType");
+                            String user = messageObj.getString("user");
 
-                            switch (userType) {
-                                case 1:
-                                    try {
-                                        MBusiness m = new MBusiness();
-                                        m.setBusinessId(messageObj.getInt("businessId"));
-                                        m.setBusinessName(messageObj.getString("businessName"));
+                            SharedPreferences sharedpreferences = getSharedPreferences("userPrefs", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedpreferences.edit();
+                            int businessId = messageObj.getInt("business");
+                            int cashierId = messageObj.getInt("cashierId");
 
-                                        MUser u = new MUser();
-                                        u.setUserId(userObj.getInt("userId"));
-                                        u.setNames(userObj.getString("names"));
-                                        u.setPhone(userObj.getString("phone"));
-                                        u.setUserType(userObj.getInt("userType"));
+                            editor.putInt("businessId", businessId);
+                            editor.putString("user", user);
+                            editor.putInt("userType", userType);
+                            editor.putInt("cashierId", cashierId);
+                            editor.putBoolean("onboard", false);
+                            editor.commit();
+                            showSuccessDialog();
 
-                                        String jCoordinates = messageObj.getString("coordinates");
-                                        m.setLocationCoordinates(jCoordinates);
-                                        m.setProducts(messageObj.getString("products"));
 
-                                        Gson gson = new Gson();
-                                        String j = gson.toJson(m);
-
-                                        SharedPreferences sharedpreferences = getSharedPreferences("userPrefs", Context.MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = sharedpreferences.edit();
-                                        editor.putString("business", j);
-                                        editor.putInt("userType", userType);
-                                        editor.commit();
-
-                                        Intent i = new Intent(LoginActivity.this, DashboardBusinessActivity.class);
-                                        startActivity(i);
-                                    }catch (Exception e){
-                                        e.printStackTrace();
-                                        Log.d("NNN", "Error: " + e.getLocalizedMessage());
-                                    }
-
-                                    break;
-                                case 2:
-                                    break;
-                                case 3:
-                                    break;
-                            }
 
                         }
 
@@ -211,7 +201,7 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onActionClick() {
                                 globalErrorDialog.dismissDialog();
-                                authenticate(json);
+                                confirmCashiherAccount(json);
                             }
                         });
 
@@ -246,7 +236,7 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onActionClick() {
                             connectionFailureDialog.dismissDialog();
-                            authenticate(json);
+                            confirmCashiherAccount(json);
 
                         }
                     });
@@ -273,6 +263,36 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    private void showSuccessDialog() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_info);
+        dialog.setCancelable(true);
+
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+        ((TextView) dialog.findViewById(R.id.title)).setText("Account Activated");
+        ((TextView) dialog.findViewById(R.id.content)).setText("You account has been activated successfully");
+
+        ((AppCompatButton) dialog.findViewById(R.id.bContinue)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(ConfirmCashierAccountActivity.this, CashierDashboardActivity.class);
+                startActivity(i);
+                finish();
+
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+        dialog.getWindow().setAttributes(lp);
+    }
+
     private void showErrorDialog(final Exception e) {
         globalErrorDialog.showResponseDialog("An error occurred. Please try again or contact support if error persists.", "Try again");
         globalErrorDialog.enableResponseViewBtn();
@@ -285,7 +305,7 @@ public class LoginActivity extends AppCompatActivity {
                 Log.d("NNN", "Response Button Clicked");
                 clickCount++;
                 if (clickCount == 6) {
-                    final ProcessDialog errorDialog = new ProcessDialog(LoginActivity.this);
+                    final ProcessDialog errorDialog = new ProcessDialog(ConfirmCashierAccountActivity.this);
                     errorDialog.showResponseDialog("Error: \n" + e.getLocalizedMessage(), "Close");
                     errorDialog.setCancelable(true);
                     errorDialog.setTouchCancel(false);
@@ -329,7 +349,7 @@ public class LoginActivity extends AppCompatActivity {
                 Log.d("NNN", "Response Button Clicked");
                 clickCount++;
                 if (clickCount == 6) {
-                    final ProcessDialog errorDialog = new ProcessDialog(LoginActivity.this);
+                    final ProcessDialog errorDialog = new ProcessDialog(ConfirmCashierAccountActivity.this);
                     errorDialog.showResponseDialog("Error: \n" + t.getLocalizedMessage(), "Close");
                     errorDialog.setCancelable(true);
                     errorDialog.setTouchCancel(false);

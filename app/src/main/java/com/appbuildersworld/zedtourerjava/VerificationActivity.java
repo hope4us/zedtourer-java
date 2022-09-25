@@ -59,11 +59,15 @@ public class VerificationActivity extends AppCompatActivity {
     private ProcessDialog registerCustomerPDialog;
     private int clickCount = 0;
     private String response;
+    int userType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verification);
+
+        Intent intent = getIntent();
+        userType  = intent.getIntExtra("userType", 0);
 
         registerBusinessPDialog = new ProcessDialog(this);
         registerBusinessPDialog.setTouchCancel(false);
@@ -180,8 +184,7 @@ public class VerificationActivity extends AppCompatActivity {
 
         tvWrongCode = (TextView) findViewById(R.id.tvWrongCode);
 
-        Intent intent = getIntent();
-        int userType = intent.getIntExtra("userType", 0);
+
 
         bVerify = findViewById(R.id.bVerify);
         bVerify.setOnClickListener(new View.OnClickListener() {
@@ -192,6 +195,8 @@ public class VerificationActivity extends AppCompatActivity {
                         + num2.getText().toString()
                         + num3.getText().toString()
                         + num4.getText().toString();
+
+                Log.d("NNN", "User Type: " + userType);
 
                 if (t1.equals(verificationCode)) {
                     if (userType == 1) {
@@ -293,12 +298,14 @@ public class VerificationActivity extends AppCompatActivity {
 
                 if (userType == 1) {
                     Intent i = new Intent(VerificationActivity.this, DashboardBusinessActivity.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(i);
                     finish();
                 }
 
                 if (userType == 2) {
                     Intent i = new Intent(VerificationActivity.this, DashboardCustomerActivity.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(i);
                     finish();
                 }
@@ -511,11 +518,17 @@ public class VerificationActivity extends AppCompatActivity {
                         if (error) {
 
                         } else {
-                            int customerId = responseJObject.getInt("message");
+                            JSONObject messageObj = responseJObject.getJSONObject("message");
+                            int customerId = messageObj.getInt("customerId");
+                            String user = messageObj.getString("user");
+
+
                             SharedPreferences sharedpreferences = getSharedPreferences("userPrefs", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedpreferences.edit();
+                            editor.putString("user", user);
                             editor.putInt("customerId", customerId);
                             editor.putInt("userType", userType);
+                            editor.putBoolean("onboard", false);
                             editor.commit();
 
                             showVerifiedDialog(userType);

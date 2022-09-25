@@ -1,37 +1,30 @@
-package com.appbuildersworld.zedtourerjava;
+package com.appbuildersworld.zedtourerjava.activities;
 
-import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.AppCompatButton;
 
-import com.appbuildersworld.zedtourerjava.activities.AddCashierActivity;
-import com.appbuildersworld.zedtourerjava.adapter.AdapterCashierList;
+import com.appbuildersworld.zedtourerjava.CashierActivity;
+import com.appbuildersworld.zedtourerjava.R;
 import com.appbuildersworld.zedtourerjava.connectivity.Constant;
 import com.appbuildersworld.zedtourerjava.interfaces.RetrofitInterface;
 import com.appbuildersworld.zedtourerjava.models.MCashier;
 import com.appbuildersworld.zedtourerjava.ui.ProcessDialog;
-import com.appbuildersworld.zedtourerjava.utils.Tools;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
 
-import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Response;
@@ -39,111 +32,133 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-
-public class CashierActivity extends AppCompatActivity {
+public class AddCashierActivity extends AppCompatActivity {
 
     private ProcessDialog connectionFailureDialog;
     private ProcessDialog globalErrorDialog;
-    private ProcessDialog getItemPDialog;
+    private ProcessDialog registerCashierPDialog;
     private int clickCount = 0;
     private String response;
-    private RecyclerView recyclerView;
-    private RelativeLayout rlNoItem;
+    private TextInputEditText tieCashierName;
+    private TextInputEditText tiePhone;
+    private String gender = "Female";
+    private int businessId;
 
-    List<MCashier> cashiers;
-
-    private View parent_view;
-    private boolean rotate = false;
+    Button bRegisterCashier;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cashier_list);
+        setContentView(R.layout.activity_add_cashier);
 
-        rlNoItem = (RelativeLayout) findViewById(R.id.rlNoItem);
+        SharedPreferences sharedpreferences = getSharedPreferences("userPrefs", Context.MODE_PRIVATE);
+        String productsObj = sharedpreferences.getString("products", "");
+        businessId = sharedpreferences.getInt("businessId", 0);
 
-        getItemPDialog = new ProcessDialog(this);
-        getItemPDialog.setTouchCancel(false);
-        getItemPDialog.setCancelable(true);
+        registerCashierPDialog = new ProcessDialog(this);
+        registerCashierPDialog.setTouchCancel(false);
+        registerCashierPDialog.setCancelable(true);
+
         connectionFailureDialog = new ProcessDialog(this);
         globalErrorDialog = new ProcessDialog(this);
 
-        SharedPreferences sharedpreferences = getSharedPreferences("userPrefs", Context.MODE_PRIVATE);
-        int businessId = sharedpreferences.getInt("businessId", 0);
+        bRegisterCashier = findViewById(R.id.bRegisterCashier);
+        bRegisterCashier.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tieCashierName = (TextInputEditText) findViewById(R.id.tieCashierName);
+                tiePhone = (TextInputEditText) findViewById(R.id.tiePhone);
 
-        // parent layout must coordinator layout
-        parent_view = findViewById(R.id.coordinator_lyt);
+                MCashier m = new MCashier();
+                m.setCashierNames(tieCashierName.getText().toString());
+                m.setPhone(tiePhone.getText().toString());
+                m.setGender(gender);
+                m.setBusinessId(businessId);
+                m.setPassword("12345");
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_baseline_house_24);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Cashiers");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Tools.setSystemBarColor(this);
+                Log.d("NNN", "Cashier Name: " + m.getCashierNames());
+                Log.d("NNN", "Phone: " + m.getPhone());
+                Log.d("NNN", "Gender: " + m.getGender());
+
+                JSONObject jsonCashier = new JSONObject();
+                try {
+                    jsonCashier.put("cashierName", m.getCashierNames());
+                    jsonCashier.put("phone", m.getPhone());
+                    jsonCashier.put("gender", m.getGender());
+                    jsonCashier.put("password", m.getPassword());
+                    jsonCashier.put("businessId", m.getBusinessId());
+                    jsonCashier.put("userType", 3);
+                    jsonCashier.put("status", "Inactive");
+                    jsonCashier.put("imageUrl", "no_profile_pic.png");
 
 
-        ((FloatingActionButton) findViewById(R.id.fab_add)).setOnClickListener(new View.OnClickListener() {
+                    registerCashier(jsonCashier.toString());
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+    }
+
+    private void showSuccessDialog() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_info);
+        dialog.setCancelable(true);
+
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+        ((TextView) dialog.findViewById(R.id.title)).setText("Account Created");
+        ((TextView) dialog.findViewById(R.id.content)).setText("An SMS with login instructions has been sent to the number used during account creation. " +
+                "\n(Note: Default password in the prototype is '12345')");
+
+        ((AppCompatButton) dialog.findViewById(R.id.bContinue)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(CashierActivity.this, AddCashierActivity.class);
+
+                Intent i = new Intent(AddCashierActivity.this, CashierActivity.class);
                 startActivity(i);
-            }
-        });
-        cashiers = new ArrayList<>();
-        getBusinessCashiers(businessId);
-    }
+                finish();
 
-    private void initComponent() {
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
-        rlNoItem.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.VISIBLE);
-
-
-        List<MCashier> items = cashiers;
-
-        AdapterCashierList mAdapter = new AdapterCashierList(this, items);
-        recyclerView.setAdapter(mAdapter);
-
-        // on item list clicked
-        mAdapter.setOnItemClickListener(new AdapterCashierList.OnItemClickListener() {
-            @SuppressLint("WrongConstant")
-            @Override
-            public void onItemClick(View view, MCashier obj, int position) {
-                Intent i = new Intent(CashierActivity.this, CashierDetailsActivity.class);
-                i.putExtra("cashier", (Serializable) obj);
-                startActivity(i);
+                dialog.dismiss();
             }
         });
 
+        dialog.show();
+        dialog.getWindow().setAttributes(lp);
     }
 
-    private void getBusinessCashiers(int businessId) {
-        Log.d("NNN", "Retrieving cashiers");
+    private void registerCashier(String json) {
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constant.baseURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .build();
         final RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
-        final retrofit2.Call remoteCall = retrofitInterface.getBusinessCashiers(businessId);
-        getItemPDialog.showProcessingDialog("Retrieving Your Products and Services.. Please wait..");
+        final retrofit2.Call remoteCall = retrofitInterface.registerCashier(json);
+        registerCashierPDialog.showProcessingDialog("Creating account.. Please wait..");
 
-        getItemPDialog.setOnCloseDialogListener(new ProcessDialog.CloseDialogClickListener() {
+        registerCashierPDialog.setOnCloseDialogListener(new ProcessDialog.CloseDialogClickListener() {
             @Override
             public void onCloseDialogClick() {
-                getItemPDialog.setCancelable(true);
-                getItemPDialog.dismissDialog();
+                registerCashierPDialog.setCancelable(true);
+                registerCashierPDialog.dismissDialog();
                 remoteCall.cancel();
 
             }
         });
-        getItemPDialog.setOnBackPressedListener(new ProcessDialog.BackPressedListener() {
+        registerCashierPDialog.setOnBackPressedListener(new ProcessDialog.BackPressedListener() {
             @Override
             public void onBackPressedClick() {
-                getItemPDialog.setCancelable(true);
-                getItemPDialog.dismissDialog();
+                registerCashierPDialog.setCancelable(true);
+                registerCashierPDialog.dismissDialog();
                 remoteCall.cancel();
             }
         });
@@ -152,7 +167,7 @@ public class CashierActivity extends AppCompatActivity {
             @Override
             public void onResponse(retrofit2.Call<ResponseBody> classCall, final Response<ResponseBody> netResponse) {
 
-                getItemPDialog.dismissDialog();
+                registerCashierPDialog.dismissDialog();
 
                 if (classCall.isCanceled()) {
                     Log.d("NNN", "Network call cancelled");
@@ -171,41 +186,22 @@ public class CashierActivity extends AppCompatActivity {
                         }
 
                         JSONObject responseJObject = new JSONObject(response);
-
-                        JSONArray cashiersJSON = responseJObject.getJSONArray("message");
-                        for (int i = 0; i < cashiersJSON.length(); i++) {
-                            JSONObject jObj = cashiersJSON.getJSONObject(i);
-                            MCashier m = new MCashier();
-                            m.setBusinessId(jObj.getInt("business"));
-                            m.setCashierId(jObj.getInt("cashierId"));
-
-                            JSONObject userObj = jObj.getJSONObject("user");
-                            m.setCashierNames(userObj.getString("names"));
-                            m.setPhone(userObj.getString("phone"));
-                            m.setGender(jObj.getString("gender"));
-                            m.setImageUrl(jObj.getString("imageUrl"));
-
-                            cashiers.add(m);
-                        }
-
-
-                        if (cashiers.size() > 0) {
-                            getItemPDialog.dismissDialog();
-                            initComponent();
+                        boolean error = responseJObject.getBoolean("error");
+                        if (error) {
 
                         } else {
-                            getItemPDialog.dismissDialog();
-
+                            showSuccessDialog();
                         }
+
                     } catch (final Exception e) {
-                        getItemPDialog.dismissDialog();
+                        registerCashierPDialog.dismissDialog();
 
                         showErrorDialog(e);
                         globalErrorDialog.setOnActionListener(new ProcessDialog.ActionClickListener() {
                             @Override
                             public void onActionClick() {
                                 globalErrorDialog.dismissDialog();
-                                getBusinessCashiers(businessId);
+                                registerCashier(json);
                             }
                         });
 
@@ -234,13 +230,13 @@ public class CashierActivity extends AppCompatActivity {
                 if (classCall.isCanceled()) {
                     Log.d("NNN", "Network call cancelled: ");
                 } else {
-                    getItemPDialog.dismissDialog();
+                    registerCashierPDialog.dismissDialog();
                     showConnectionFailureDialog(t);
                     connectionFailureDialog.setOnActionListener(new ProcessDialog.ActionClickListener() {
                         @Override
                         public void onActionClick() {
                             connectionFailureDialog.dismissDialog();
-                            getBusinessCashiers(businessId);
+                            registerCashier(json);
                         }
                     });
 
@@ -266,22 +262,6 @@ public class CashierActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_search_setting, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-        } else {
-            Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     private void showErrorDialog(final Exception e) {
         globalErrorDialog.showResponseDialog("An error occurred. Please try again or contact support if error persists.", "Try again");
         globalErrorDialog.enableResponseViewBtn();
@@ -294,7 +274,7 @@ public class CashierActivity extends AppCompatActivity {
                 Log.d("NNN", "Response Button Clicked");
                 clickCount++;
                 if (clickCount == 6) {
-                    final ProcessDialog errorDialog = new ProcessDialog(CashierActivity.this);
+                    final ProcessDialog errorDialog = new ProcessDialog(AddCashierActivity.this);
                     errorDialog.showResponseDialog("Error: \n" + e.getLocalizedMessage(), "Close");
                     errorDialog.setCancelable(true);
                     errorDialog.setTouchCancel(false);
@@ -338,7 +318,7 @@ public class CashierActivity extends AppCompatActivity {
                 Log.d("NNN", "Response Button Clicked");
                 clickCount++;
                 if (clickCount == 6) {
-                    final ProcessDialog errorDialog = new ProcessDialog(CashierActivity.this);
+                    final ProcessDialog errorDialog = new ProcessDialog(AddCashierActivity.this);
                     errorDialog.showResponseDialog("Error: \n" + t.getLocalizedMessage(), "Close");
                     errorDialog.setCancelable(true);
                     errorDialog.setTouchCancel(false);

@@ -10,6 +10,7 @@
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/drawable/btn_rounded_accent.xml" value="0.11018518518518519" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/drawable/btn_rounded_green_300.xml" value="0.20185185185185187" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/drawable/btn_rounded_primary.xml" value="0.11018518518518519" />
+        <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/drawable/btn_rounded_red.xml" value="0.1" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/drawable/btn_rounded_white.xml" value="0.20925925925925926" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/drawable/btn_rounded_white_outline.xml" value="0.1125" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/drawable/ic_baseline_cancel_24.xml" value="0.175" />
@@ -25,20 +26,27 @@
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/drawable/shape_circle.xml" value="0.11018518518518519" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/drawable/shape_rounded_orange.xml" value="0.14537037037037037" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/activity_account_verified.xml" value="0.11458333333333333" />
+        <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/activity_add_cashier.xml" value="0.13854166666666667" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/activity_bill.xml" value="0.33" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/activity_bill_invoice.xml" value="0.19882246376811594" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/activity_bottom_sheet_map.xml" value="0.1" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/activity_business_owner_profile.xml" value="0.19010416666666666" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/activity_business_profile.xml" value="0.5139911634756995" />
-        <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/activity_business_sign_up.xml" value="0.1" />
+        <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/activity_business_sign_up.xml" value="0.22" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/activity_business_signup2.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/activity_cart.xml" value="0.1" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/activity_cashier.xml" value="0.19010416666666666" />
+        <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/activity_cashier_dashboard.xml" value="0.1" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/activity_cashier_details.xml" value="0.19010416666666666" />
+        <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/activity_cashier_list.xml" value="0.21" />
+        <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/activity_cashier_list2.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/activity_cashier_sign_up.xml" value="0.1" />
+        <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/activity_confirm_cashier_account.xml" value="0.33" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/activity_customer_list.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/activity_customer_signup.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/activity_customer_signup.xml" value="0.33" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/activity_dashboard_business.xml" value="0.25" />
-        <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/activity_dashboard_customer.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/activity_dashboard_cashier.xml" value="0.12916666666666668" />
+        <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/activity_dashboard_customer.xml" value="0.1" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/activity_dashboard_user.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/activity_login.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/activity_maps.xml" value="0.20416666666666666" />
@@ -53,20 +61,26 @@
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/activity_wallet.xml" value="0.1" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/badge_navigation_colored.xml" value="0.11458333333333333" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/badge_navigation_plain.xml" value="0.11458333333333333" />
+        <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/customer_list.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/dialog_deposit.xml" value="0.18" />
+        <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/dialog_image_center.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/dialog_info.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/dialog_info_deposit.xml" value="0.25" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/dialog_info_order_success.xml" value="0.33" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/dialog_payment_success.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/dialog_processing_data.xml" value="0.15885416666666666" />
+        <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/dialog_warning.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/fragment_product_grid.xml" value="0.1" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/include_card_view_search_bar.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/include_drawer_header_mail.xml" value="0.4067796610169492" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/item_card_onboard.xml" value="0.1" />
+        <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/item_people_chat.xml" value="0.25" />
+        <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/item_product_card.xml" value="0.1" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/item_shop_product_card.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/sheet_map.xml" value="0.21" />
+        <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/sheet_map.xml" value="0.33" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/layout/toolbar.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/menu/menu_cart_setting.xml" value="0.1234375" />
+        <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/menu/menu_cashier_profile.xml" value="0.10677083333333333" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/menu/menu_list.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/menu/menu_navigation_drawer_mail_no_icon.xml" value="0.21" />
         <entry key="..\:/Users/rootuser/ProjectsData/ABW/AndroidProjects/ZedTourerJava/app/src/main/res/menu/menu_search_setting.xml" value="0.20416666666666666" />

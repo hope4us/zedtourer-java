@@ -13,8 +13,11 @@ import android.widget.TextView;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.toolbox.NetworkImageView;
 import com.appbuildersworld.zedtourerjava.R;
+import com.appbuildersworld.zedtourerjava.connectivity.Constant;
 import com.appbuildersworld.zedtourerjava.models.MProductFood;
+import com.appbuildersworld.zedtourerjava.utils.ImageRequester;
 import com.appbuildersworld.zedtourerjava.utils.Tools;
 
 import java.util.ArrayList;
@@ -23,7 +26,7 @@ import java.util.List;
 public class AdapterGridFoodCard extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<MProductFood> items = new ArrayList<>();
-
+    private ImageRequester imageRequester;
     private Context ctx;
     private OnItemClickListener mOnItemClickListener;
     private OnMoreButtonClickListener onMoreButtonClickListener;
@@ -39,10 +42,11 @@ public class AdapterGridFoodCard extends RecyclerView.Adapter<RecyclerView.ViewH
     public AdapterGridFoodCard(Context context, List<MProductFood> items) {
         this.items = items;
         ctx = context;
+        imageRequester = ImageRequester.getInstance();
     }
 
     public class OriginalViewHolder extends RecyclerView.ViewHolder {
-        public ImageView image;
+        public NetworkImageView image;
         public TextView title;
         public TextView price;
         public ImageButton more;
@@ -50,7 +54,7 @@ public class AdapterGridFoodCard extends RecyclerView.Adapter<RecyclerView.ViewH
 
         public OriginalViewHolder(View v) {
             super(v);
-            image = (ImageView) v.findViewById(R.id.image);
+            image = (NetworkImageView) v.findViewById(R.id.image);
             title = (TextView) v.findViewById(R.id.title);
             price = (TextView) v.findViewById(R.id.price);
             more = (ImageButton) v.findViewById(R.id.more);
@@ -61,7 +65,7 @@ public class AdapterGridFoodCard extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder vh;
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_shop_product_card, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product_card, parent, false);
         vh = new OriginalViewHolder(v);
         return vh;
     }
@@ -75,7 +79,8 @@ public class AdapterGridFoodCard extends RecyclerView.Adapter<RecyclerView.ViewH
             final MProductFood p = items.get(position);
             view.title.setText(p.getFoodName());
             view.price.setText("ZMW " + p.getPrice());
-            //Tools.displayImageOriginal(ctx, view.image, p.image);
+            imageRequester.setImageFromUrl(view.image, Constant.baseURL + "/files/images/" + p.getImageUrl());
+
             view.lyt_parent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

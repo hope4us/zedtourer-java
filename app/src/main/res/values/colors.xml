@@ -42,6 +42,10 @@
     <color name="overlay_light_30">#4DFFFFFF</color>
     <color name="overlay_dark_50">#80000000</color>
 
+    <color name="red_300">#E57373</color>
+    <color name="red_400">#EF5350</color>
+
+
 
     <color name="zed_main">#0f91ed</color>
     <color name="zed_light">#3ca7f3</color>
