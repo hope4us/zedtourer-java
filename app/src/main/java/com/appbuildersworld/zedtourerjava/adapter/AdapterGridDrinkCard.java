@@ -27,7 +27,6 @@ import java.util.List;
 public class AdapterGridDrinkCard extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<MProductDrinkNonAlc> items = new ArrayList<>();
-    private ImageRequester imageRequester;
     private Context ctx;
     private OnItemClickListener mOnItemClickListener;
     private OnMoreButtonClickListener onMoreButtonClickListener;
@@ -43,11 +42,10 @@ public class AdapterGridDrinkCard extends RecyclerView.Adapter<RecyclerView.View
     public AdapterGridDrinkCard(Context context, List<MProductDrinkNonAlc> items) {
         this.items = items;
         ctx = context;
-        imageRequester = ImageRequester.getInstance();
     }
 
     public class OriginalViewHolder extends RecyclerView.ViewHolder {
-        public NetworkImageView image;
+        public ImageView image;
         public TextView title;
         public TextView price;
         public ImageButton more;
@@ -55,7 +53,7 @@ public class AdapterGridDrinkCard extends RecyclerView.Adapter<RecyclerView.View
 
         public OriginalViewHolder(View v) {
             super(v);
-            image = (NetworkImageView) v.findViewById(R.id.image);
+            image = (ImageView) v.findViewById(R.id.image);
             title = (TextView) v.findViewById(R.id.title);
             price = (TextView) v.findViewById(R.id.price);
             more = (ImageButton) v.findViewById(R.id.more);
@@ -80,9 +78,7 @@ public class AdapterGridDrinkCard extends RecyclerView.Adapter<RecyclerView.View
             final MProductDrinkNonAlc p = items.get(position);
             view.title.setText(p.getProductName());
             view.price.setText("" + p.getPrice());
-            imageRequester.setImageFromUrl(view.image, Constant.baseURL + "/files/images/" + p.getImageUrl());
-
-            //Tools.displayImageOriginal(ctx, view.image, p.image);
+            Tools.displayImageOriginal(ctx, view.image, Constant.baseURL + "/files/images/" + p.getImageUrl());
             view.lyt_parent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

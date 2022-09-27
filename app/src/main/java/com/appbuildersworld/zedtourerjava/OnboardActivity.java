@@ -23,6 +23,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.appbuildersworld.zedtourerjava.activities.LoginActivity;
+import com.appbuildersworld.zedtourerjava.activities.admin.DashboardBusinessActivity;
+import com.appbuildersworld.zedtourerjava.activities.cashier.CashierOrderListActivity;
+import com.appbuildersworld.zedtourerjava.activities.customer.DashboardCustomerActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -97,7 +100,7 @@ public class OnboardActivity extends AppCompatActivity {
                             break;
 
                         case 3:
-                            i = new Intent(OnboardActivity.this, DashboardCashierActivity.class);
+                            i = new Intent(OnboardActivity.this, CashierOrderListActivity.class);
                             startActivity(i);
                             finish();
                             break;

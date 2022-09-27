@@ -1,39 +1,30 @@
-package com.appbuildersworld.zedtourerjava;
+package com.appbuildersworld.zedtourerjava.activities.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.ViewCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 
+import com.appbuildersworld.zedtourerjava.R;
+import com.appbuildersworld.zedtourerjava.VerificationActivity;
 import com.appbuildersworld.zedtourerjava.activities.MapsActivity;
 import com.appbuildersworld.zedtourerjava.connectivity.Constant;
 import com.appbuildersworld.zedtourerjava.interfaces.RetrofitInterface;
 import com.appbuildersworld.zedtourerjava.models.MBusiness;
 import com.appbuildersworld.zedtourerjava.models.MProductCategory;
-import com.appbuildersworld.zedtourerjava.models.MUser;
 import com.appbuildersworld.zedtourerjava.ui.ProcessDialog;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
 
 import okhttp3.ResponseBody;
 import retrofit2.Response;
@@ -56,7 +47,7 @@ public class BusinessSignUpActivity extends AppCompatActivity {
     private TextInputEditText tieOwnerName;
     private TextInputEditText tiePhone;
     private TextInputEditText tiePassword;
-
+    private TextInputEditText tieNatureOfBusiness;
 
 
     private JSONArray productSelection;
@@ -95,6 +86,7 @@ public class BusinessSignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 MBusiness m = new MBusiness();
+                m.setNatureOfBusiness(tieNatureOfBusiness.getText().toString());
                 m.setBusinessName(tieBusinessName.getText().toString());
                 JSONObject coordinates = new JSONObject();
                 try {
@@ -119,9 +111,6 @@ public class BusinessSignUpActivity extends AppCompatActivity {
 
                 m.setUser(user.toString());
 
-                Gson gson = new Gson();
-                String j = gson.toJson(m);
-
                 Intent i = new Intent(BusinessSignUpActivity.this, VerificationActivity.class);
                 i.putExtra("business", (Serializable) m);
                 i.putExtra("userType", 1);
@@ -133,6 +122,7 @@ public class BusinessSignUpActivity extends AppCompatActivity {
         productSelection = new JSONArray();
         getProductCategories();
 
+        tieNatureOfBusiness = (TextInputEditText) findViewById(R.id.tieNatureOfBusiness);
         tieBusinessName = (TextInputEditText) findViewById(R.id.tieBusinessName);
         tieOwnerName = (TextInputEditText) findViewById(R.id.tieOwnerName);
         tiePhone = (TextInputEditText) findViewById(R.id.tiePhone);

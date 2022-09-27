@@ -52,9 +52,6 @@ public class CashierActivity extends AppCompatActivity {
 
     List<MCashier> cashiers;
 
-    private View parent_view;
-    private boolean rotate = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,8 +68,7 @@ public class CashierActivity extends AppCompatActivity {
         SharedPreferences sharedpreferences = getSharedPreferences("userPrefs", Context.MODE_PRIVATE);
         int businessId = sharedpreferences.getInt("businessId", 0);
 
-        // parent layout must coordinator layout
-        parent_view = findViewById(R.id.coordinator_lyt);
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_baseline_house_24);

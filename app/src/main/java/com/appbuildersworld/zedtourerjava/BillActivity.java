@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.appbuildersworld.zedtourerjava.activities.customer.CustomerOrderDetailsActivity;
+
 public class BillActivity extends AppCompatActivity {
 
     private CardView cvBill;
@@ -20,7 +22,7 @@ public class BillActivity extends AppCompatActivity {
         cvBill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(BillActivity.this, BillInvoiceActivity.class);
+                Intent i = new Intent(BillActivity.this, CustomerOrderDetailsActivity.class);
                 startActivity(i);
             }
         });

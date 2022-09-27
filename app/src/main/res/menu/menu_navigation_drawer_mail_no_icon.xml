@@ -12,8 +12,8 @@
         <item
             android:id="@+id/nav_bills"
             android:checked="true"
-            android:title="Bills"
-            app:actionLayout="@layout/badge_navigation_colored" />
+            android:title="Orders"
+            app:actionLayout="@layout/badge_navigation_plain" />
     </group>
     <group
         android:id="@+id/grp_2"
@@ -27,6 +27,10 @@
         <item
             android:id="@+id/nav_about"
             android:title="About" />
+
+        <item
+            android:id="@+id/nav_logout"
+            android:title="Logout" />
     </group>
 
 </menu>

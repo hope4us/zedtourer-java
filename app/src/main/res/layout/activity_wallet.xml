@@ -103,9 +103,10 @@
                                 android:textColor="@color/light_blue_100" />
 
                             <TextView
+                                android:id="@+id/tvBalance"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="ZMW 2556.58"
+                                android:text="ZMW 0"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1"
                                 android:textColor="@android:color/white"
                                 app:fontFamily="sans-serif-medium" />

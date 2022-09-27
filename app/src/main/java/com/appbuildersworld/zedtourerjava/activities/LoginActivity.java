@@ -15,10 +15,13 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
-import com.appbuildersworld.zedtourerjava.BusinessSignUpActivity;
+import com.appbuildersworld.zedtourerjava.activities.admin.BusinessSignUpActivity;
 import com.appbuildersworld.zedtourerjava.CustomerSignupActivity;
-import com.appbuildersworld.zedtourerjava.DashboardBusinessActivity;
+import com.appbuildersworld.zedtourerjava.DashboardCashierActivity;
+import com.appbuildersworld.zedtourerjava.activities.admin.DashboardBusinessActivity;
 import com.appbuildersworld.zedtourerjava.R;
+import com.appbuildersworld.zedtourerjava.activities.cashier.CashierOrderListActivity;
+import com.appbuildersworld.zedtourerjava.activities.customer.DashboardCustomerActivity;
 import com.appbuildersworld.zedtourerjava.connectivity.Constant;
 import com.appbuildersworld.zedtourerjava.interfaces.RetrofitInterface;
 import com.appbuildersworld.zedtourerjava.ui.ProcessDialog;
@@ -180,14 +183,15 @@ public class LoginActivity extends AppCompatActivity {
                                 case 1:
                                     try {
 
-
                                         int businessId = messageObj.getInt("businessId");
                                         String coordinates = messageObj.getString("coordinates");
                                         String products = messageObj.getString("products");
+                                        String businessName = messageObj.getString("businessName");
 
                                         SharedPreferences sharedpreferences = getSharedPreferences("userPrefs", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sharedpreferences.edit();
                                         editor.putInt("businessId", businessId);
+                                        editor.putString("businessName", businessName);
                                         editor.putString("user", user);
                                         editor.putString("coordinates", coordinates);
                                         editor.putString("products", products);
@@ -197,6 +201,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                         Intent i = new Intent(LoginActivity.this, DashboardBusinessActivity.class);
                                         startActivity(i);
+                                        finish();
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                         Log.d("NNN", "Error: " + e.getLocalizedMessage());
@@ -204,12 +209,34 @@ public class LoginActivity extends AppCompatActivity {
 
                                     break;
                                 case 2:
+                                    try {
 
+                                        int customerId = messageObj.getInt("customerId");
+
+                                        SharedPreferences sharedpreferences = getSharedPreferences("userPrefs", Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sharedpreferences.edit();
+                                        editor.putInt("customerId", customerId);
+                                        editor.putString("user", user);
+                                        editor.putInt("userType", userType);
+                                        editor.putBoolean("onboard", false);
+                                        editor.commit();
+
+                                        Intent i = new Intent(LoginActivity.this, DashboardCustomerActivity.class);
+                                        startActivity(i);
+                                        finish();
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                        Log.d("NNN", "Error: " + e.getLocalizedMessage());
+                                    }
                                     break;
                                 case 3:
                                     try {
 
-                                        int businessId = messageObj.getInt("business");
+                                        String business = messageObj.getString("business");
+                                        JSONObject businessJSON = new JSONObject(business);
+
+                                        int businessId = businessJSON.getInt("businessId");
+                                        String businessName = businessJSON.getString("businessName");
 
                                         String status = messageObj.getString("status");
 
@@ -220,13 +247,15 @@ public class LoginActivity extends AppCompatActivity {
                                                 SharedPreferences sharedpreferences = getSharedPreferences("userPrefs", Context.MODE_PRIVATE);
                                                 SharedPreferences.Editor editor = sharedpreferences.edit();
                                                 editor.putInt("businessId", businessId);
+                                                editor.putString("businessName", businessName);
                                                 editor.putString("user", user);
                                                 editor.putInt("userType", userType);
                                                 editor.putBoolean("onboard", false);
                                                 editor.commit();
 
-                                                i = new Intent(LoginActivity.this, DashboardBusinessActivity.class);
+                                                i = new Intent(LoginActivity.this, CashierOrderListActivity.class);
                                                 startActivity(i);
+                                                finish();
                                                 break;
                                             case "Inactive":
 

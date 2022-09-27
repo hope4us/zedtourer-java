@@ -1,4 +1,4 @@
-package com.appbuildersworld.zedtourerjava.activities;
+package com.appbuildersworld.zedtourerjava.activities.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 

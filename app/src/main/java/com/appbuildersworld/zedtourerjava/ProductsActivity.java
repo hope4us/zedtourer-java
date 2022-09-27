@@ -12,8 +12,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
+import com.appbuildersworld.zedtourerjava.activities.customer.CartActivity;
 import com.appbuildersworld.zedtourerjava.fragment.FragmentProductGrid;
 import com.appbuildersworld.zedtourerjava.utils.Tools;
 import com.google.android.material.tabs.TabLayout;

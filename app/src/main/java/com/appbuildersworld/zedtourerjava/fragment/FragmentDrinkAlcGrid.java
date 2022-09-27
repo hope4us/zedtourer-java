@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.appbuildersworld.zedtourerjava.ProductDetailsActivity;
 import com.appbuildersworld.zedtourerjava.R;
+import com.appbuildersworld.zedtourerjava.activities.customer.ProductDetailsCustomerActivity;
 import com.appbuildersworld.zedtourerjava.adapter.AdapterGridDrinkAlcCard;
 import com.appbuildersworld.zedtourerjava.adapter.AdapterGridDrinkAlcCard;
 import com.appbuildersworld.zedtourerjava.data.DataGenerator;
@@ -23,6 +24,7 @@ import com.appbuildersworld.zedtourerjava.utils.Tools;
 import com.appbuildersworld.zedtourerjava.widget.SpacingItemDecoration;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
@@ -58,7 +60,14 @@ public class FragmentDrinkAlcGrid extends Fragment {
         mAdapter.setOnItemClickListener(new AdapterGridDrinkAlcCard.OnItemClickListener() {
             @Override
             public void onItemClick(View view, MProductDrinkAlc obj, int position) {
-                Intent i = new Intent(getActivity(), ProductDetailsActivity.class);
+                Intent i = new Intent(getActivity(), ProductDetailsCustomerActivity.class);
+                i.putExtra("productName", obj.getProductName());
+                i.putExtra("category", obj.getCategoryName());
+                i.putExtra("imageUrl", obj.getImageUrl());
+                i.putExtra("description", obj.getDescription());
+                i.putExtra("price", obj.getPrice());
+                i.putExtra("productId", obj.getProductId());
+                i.putExtra("categoryId", obj.getProductCategoryId());
                 startActivity(i);
             }
         });

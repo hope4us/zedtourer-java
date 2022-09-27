@@ -5,11 +5,11 @@ import android.content.Context;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
-public class ShrineApplication extends Application {
-    private static ShrineApplication instance;
+public class ZedTourerApplication extends Application {
+    private static ZedTourerApplication instance;
     private static Context appContext;
 
-    public static ShrineApplication getInstance() {
+    public static ZedTourerApplication getInstance() {
         return instance;
     }
 

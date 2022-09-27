@@ -67,6 +67,7 @@
     <string name="account_confirmation">Account Confirmation</string>
     <string name="cashier_new_password">Enter a new password here</string>
     <string name="cashier_number">Registered number</string>
+    <string name="nature_of_business">Nature of Business</string>
 
 
 </resources>

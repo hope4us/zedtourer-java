@@ -50,19 +50,26 @@
                 android:padding="@dimen/spacing_large">
 
                 <HorizontalScrollView
+                    android:id="@+id/hsvBusiness"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/spacing_middle"
                     android:scrollbarSize="1dp">
 
                     <LinearLayout
+                        android:id="@+id/llPlaces"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <include layout="@layout/dialog_image_center" />
-                        <include layout="@layout/dialog_image_center" />
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvHorizontal"
+                            android:scrollbars="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true" />
 
 
                         <!--  <ImageView

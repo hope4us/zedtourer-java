@@ -26,7 +26,6 @@ import java.util.List;
 public class AdapterGridFoodCard extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<MProductFood> items = new ArrayList<>();
-    private ImageRequester imageRequester;
     private Context ctx;
     private OnItemClickListener mOnItemClickListener;
     private OnMoreButtonClickListener onMoreButtonClickListener;
@@ -42,11 +41,10 @@ public class AdapterGridFoodCard extends RecyclerView.Adapter<RecyclerView.ViewH
     public AdapterGridFoodCard(Context context, List<MProductFood> items) {
         this.items = items;
         ctx = context;
-        imageRequester = ImageRequester.getInstance();
     }
 
     public class OriginalViewHolder extends RecyclerView.ViewHolder {
-        public NetworkImageView image;
+        public ImageView image;
         public TextView title;
         public TextView price;
         public ImageButton more;
@@ -54,7 +52,7 @@ public class AdapterGridFoodCard extends RecyclerView.Adapter<RecyclerView.ViewH
 
         public OriginalViewHolder(View v) {
             super(v);
-            image = (NetworkImageView) v.findViewById(R.id.image);
+            image = (ImageView) v.findViewById(R.id.image);
             title = (TextView) v.findViewById(R.id.title);
             price = (TextView) v.findViewById(R.id.price);
             more = (ImageButton) v.findViewById(R.id.more);
@@ -79,7 +77,7 @@ public class AdapterGridFoodCard extends RecyclerView.Adapter<RecyclerView.ViewH
             final MProductFood p = items.get(position);
             view.title.setText(p.getFoodName());
             view.price.setText("ZMW " + p.getPrice());
-            imageRequester.setImageFromUrl(view.image, Constant.baseURL + "/files/images/" + p.getImageUrl());
+            Tools.displayImageOriginal(ctx, view.image, Constant.baseURL + "/files/images/" + p.getImageUrl());
 
             view.lyt_parent.setOnClickListener(new View.OnClickListener() {
                 @Override

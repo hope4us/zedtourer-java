@@ -16,7 +16,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.appbuildersworld.zedtourerjava.CartActivity;
+import com.appbuildersworld.zedtourerjava.activities.customer.CartActivity;
 import com.appbuildersworld.zedtourerjava.R;
 import com.appbuildersworld.zedtourerjava.connectivity.Constant;
 import com.appbuildersworld.zedtourerjava.fragment.FragmentDrinkAlcGrid;

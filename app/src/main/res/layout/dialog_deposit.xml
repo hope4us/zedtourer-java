@@ -89,7 +89,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/spacing_xsmall"
                     android:textSize="20sp"
-                    android:text="Hope Mutale - 0962033348"
+                    android:text=""
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                     android:textColor="@color/grey_60" />
             </LinearLayout>

@@ -130,7 +130,13 @@ public class Tools {
         } catch (Exception e) {
         }
     }
-
+    public static void displayImageResized(Context ctx, ImageView img, String url) {
+        try {
+            Glide.with(ctx).load(url).asBitmap().centerCrop().into(new BitmapImageViewTarget(img));
+            // override(300, 200)
+        } catch (Exception e) {
+        }
+    }
     public static void displayImageRoundUrl(final Context ctx, final ImageView img, String url) {
         try {
             Glide.with(ctx).load(url).asBitmap().centerCrop().into(new BitmapImageViewTarget(img) {

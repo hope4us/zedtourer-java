@@ -17,21 +17,17 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.appbuildersworld.zedtourerjava.activities.admin.DashboardBusinessActivity;
+import com.appbuildersworld.zedtourerjava.activities.customer.DashboardCustomerActivity;
 import com.appbuildersworld.zedtourerjava.connectivity.Constant;
 import com.appbuildersworld.zedtourerjava.interfaces.RetrofitInterface;
 import com.appbuildersworld.zedtourerjava.models.MBusiness;
 import com.appbuildersworld.zedtourerjava.models.MCustomer;
-import com.appbuildersworld.zedtourerjava.models.MProductCategory;
 import com.appbuildersworld.zedtourerjava.ui.ProcessDialog;
-import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
-
-import java.util.HashMap;
-import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Response;
@@ -227,6 +223,7 @@ public class VerificationActivity extends AppCompatActivity {
                                 jsonArray.put(productIds.get(i));
                             }
 
+                            jsonBusiness.put("natureOfBusiness", business.getNatureOfBusiness());
                             jsonBusiness.put("businessName", business.getBusinessName());
                             jsonBusiness.put("products", jsonArray);
                             jsonBusiness.put("latitude", coordinates.get("latitude"));
@@ -375,6 +372,8 @@ public class VerificationActivity extends AppCompatActivity {
                         } else {
                             JSONObject messageObj = responseJObject.getJSONObject("message");
                             int businessId = messageObj.getInt("businessId");
+                            String businessName = messageObj.getString("businessName");
+
                             String user = messageObj.getString("user");
                             String coordinates = messageObj.getString("coordinates");
                             String products = messageObj.getString("products");
@@ -382,6 +381,7 @@ public class VerificationActivity extends AppCompatActivity {
                             SharedPreferences sharedpreferences = getSharedPreferences("userPrefs", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedpreferences.edit();
                             editor.putInt("businessId", businessId);
+                            editor.putString("businessName", businessName);
                             editor.putString("user", user);
                             editor.putString("coordinates", coordinates);
                             editor.putString("products", products);
@@ -400,7 +400,6 @@ public class VerificationActivity extends AppCompatActivity {
                             @Override
                             public void onActionClick() {
                                 globalErrorDialog.dismissDialog();
-                                registerBusiness(json, userType);
                             }
                         });
 
@@ -542,7 +541,6 @@ public class VerificationActivity extends AppCompatActivity {
                             @Override
                             public void onActionClick() {
                                 globalErrorDialog.dismissDialog();
-                                registerBusiness(json, userType);
                             }
                         });
 
@@ -577,7 +575,6 @@ public class VerificationActivity extends AppCompatActivity {
                         @Override
                         public void onActionClick() {
                             connectionFailureDialog.dismissDialog();
-                            registerBusiness(json, userType);
 
                         }
                     });

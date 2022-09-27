@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cvBUsiness"
     android:layout_width="wrap_content"
     android:layout_height="380dp"
     app:cardBackgroundColor="@android:color/white"
@@ -14,12 +15,11 @@
         android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/ivBusinessBkg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:src="@drawable/img_plant_13" />
-
-
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -41,10 +41,11 @@
                 android:paddingTop="@dimen/spacing_middle">
 
                 <TextView
+                    android:id="@+id/tvBusinessName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Mauris Elementum"
+                    android:text="Business Name"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                     android:textColor="@color/grey_90"
                     app:fontFamily="sans-serif-medium" />
@@ -54,22 +55,12 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical">
 
-                    <ImageView
-                        android:layout_width="@dimen/spacing_middle"
-                        android:layout_height="@dimen/spacing_middle"
-                        android:layout_marginTop="1dp"
-                        app:tint="@color/grey_40"
-                        app:srcCompat="@drawable/ic_location" />
-
-                    <View
-                        android:layout_width="@dimen/spacing_medium"
-                        android:layout_height="0dp" />
-
                     <TextView
+                        android:id="@+id/tvNatureOfBusiness"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="New York, USA"
+                        android:text="Nature of BUsiness"
                         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                         android:textColor="@color/grey_40" />
 

@@ -15,9 +15,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.appbuildersworld.zedtourerjava.CashierActivity;
 import com.appbuildersworld.zedtourerjava.CashierDashboardActivity;
-import com.appbuildersworld.zedtourerjava.DashboardBusinessActivity;
 import com.appbuildersworld.zedtourerjava.R;
 import com.appbuildersworld.zedtourerjava.connectivity.Constant;
 import com.appbuildersworld.zedtourerjava.interfaces.RetrofitInterface;

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.appbuildersworld.zedtourerjava.ProductDetailsActivity;
 import com.appbuildersworld.zedtourerjava.R;
+import com.appbuildersworld.zedtourerjava.activities.customer.ProductDetailsCustomerActivity;
 import com.appbuildersworld.zedtourerjava.adapter.AdapterGridFoodCard;
 import com.appbuildersworld.zedtourerjava.adapter.AdapterGridFoodCard;
 import com.appbuildersworld.zedtourerjava.data.DataGenerator;
@@ -58,7 +59,13 @@ public class FragmentFoodGrid extends Fragment {
         mAdapter.setOnItemClickListener(new AdapterGridFoodCard.OnItemClickListener() {
             @Override
             public void onItemClick(View view, MProductFood obj, int position) {
-                Intent i = new Intent(getActivity(), ProductDetailsActivity.class);
+                Intent i = new Intent(getActivity(), ProductDetailsCustomerActivity.class);
+                i.putExtra("productName", obj.getFoodName());
+                i.putExtra("category", obj.getCategoryName());
+                i.putExtra("imageUrl", obj.getImageUrl());
+                i.putExtra("description", obj.getDescription());
+                i.putExtra("price", obj.getPrice());
+                i.putExtra("productId", obj.getProductId());
                 startActivity(i);
             }
         });

@@ -8,6 +8,24 @@ public class MBusiness implements Serializable {
     private String products;
     private String locationCoordinates;
     private String user;
+    private String imageUrl;
+    private String natureOfBusiness;
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getNatureOfBusiness() {
+        return natureOfBusiness;
+    }
+
+    public void setNatureOfBusiness(String natureOfBusiness) {
+        this.natureOfBusiness = natureOfBusiness;
+    }
 
     public int getBusinessId() {
         return businessId;

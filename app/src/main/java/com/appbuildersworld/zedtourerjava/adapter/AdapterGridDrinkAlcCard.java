@@ -14,6 +14,7 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.appbuildersworld.zedtourerjava.R;
+import com.appbuildersworld.zedtourerjava.connectivity.Constant;
 import com.appbuildersworld.zedtourerjava.models.MProductDrinkAlc;
 import com.appbuildersworld.zedtourerjava.models.MProductDrinkAlc;
 import com.appbuildersworld.zedtourerjava.utils.Tools;
@@ -62,7 +63,7 @@ public class AdapterGridDrinkAlcCard extends RecyclerView.Adapter<RecyclerView.V
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder vh;
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_shop_product_card, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product_card, parent, false);
         vh = new OriginalViewHolder(v);
         return vh;
     }
@@ -76,7 +77,7 @@ public class AdapterGridDrinkAlcCard extends RecyclerView.Adapter<RecyclerView.V
             final MProductDrinkAlc p = items.get(position);
             view.title.setText(p.getProductName());
             view.price.setText("ZMW " + p.getPrice());
-            //Tools.displayImageOriginal(ctx, view.image, p.image);
+            Tools.displayImageOriginal(ctx, view.image, Constant.baseURL + "/files/images/" + p.getImageUrl());
             view.lyt_parent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

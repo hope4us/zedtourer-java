@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.appbuildersworld.zedtourerjava.ProductDetailsActivity;
 import com.appbuildersworld.zedtourerjava.R;
+import com.appbuildersworld.zedtourerjava.activities.customer.ProductDetailsCustomerActivity;
 import com.appbuildersworld.zedtourerjava.adapter.AdapterGridDrinkCard;
 import com.appbuildersworld.zedtourerjava.data.DataGenerator;
 import com.appbuildersworld.zedtourerjava.models.MProductDrinkNonAlc;
@@ -57,7 +58,14 @@ public class FragmentDrinkGrid extends Fragment {
         mAdapter.setOnItemClickListener(new AdapterGridDrinkCard.OnItemClickListener() {
             @Override
             public void onItemClick(View view, MProductDrinkNonAlc obj, int position) {
-                Intent i = new Intent(getActivity(), ProductDetailsActivity.class);
+                Intent i = new Intent(getActivity(), ProductDetailsCustomerActivity.class);
+                i.putExtra("productName", obj.getProductName());
+                i.putExtra("category", obj.getCategoryName());
+                i.putExtra("imageUrl", obj.getImageUrl());
+                i.putExtra("description", obj.getDescription());
+                i.putExtra("price", obj.getPrice());
+                i.putExtra("productId", obj.getProductId());
+                i.putExtra("categoryId", obj.getProductCategoryId());
                 startActivity(i);
             }
         });

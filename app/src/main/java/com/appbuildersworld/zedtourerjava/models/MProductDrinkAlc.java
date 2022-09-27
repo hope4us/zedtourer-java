@@ -7,6 +7,15 @@ public class MProductDrinkAlc {
     private String description;
     private String imageUrl;
     private double price;
+    private String categoryName;
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
 
     public int getProductId() {
         return productId;

@@ -1,4 +1,4 @@
-package com.appbuildersworld.zedtourerjava;
+package com.appbuildersworld.zedtourerjava.activities.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.appbuildersworld.zedtourerjava.R;
 import com.appbuildersworld.zedtourerjava.utils.Tools;
 
 

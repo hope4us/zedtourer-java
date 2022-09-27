@@ -1,0 +1,527 @@
+package com.appbuildersworld.zedtourerjava.activities.cashier;
+
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+
+import com.appbuildersworld.zedtourerjava.CashierDashboardActivity;
+import com.appbuildersworld.zedtourerjava.PaymentSuccessActivity;
+import com.appbuildersworld.zedtourerjava.R;
+import com.appbuildersworld.zedtourerjava.activities.ConfirmCashierAccountActivity;
+import com.appbuildersworld.zedtourerjava.connectivity.Constant;
+import com.appbuildersworld.zedtourerjava.interfaces.RetrofitInterface;
+import com.appbuildersworld.zedtourerjava.models.MBusinessOrder;
+import com.appbuildersworld.zedtourerjava.ui.ProcessDialog;
+import com.balysv.materialripple.MaterialRippleLayout;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import okhttp3.ResponseBody;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
+
+public class CashierOrderDetailsActivity extends AppCompatActivity {
+
+    private ProcessDialog connectionFailureDialog;
+    private ProcessDialog globalErrorDialog;
+    private ProcessDialog remoteCallPDialog;
+    private ProcessDialog acceptOrderPDialog;
+    private int clickCount = 0;
+    private String response;
+    private int orderId;
+    private int cashierId;
+
+    private MBusinessOrder businessOrder;
+
+    private TextView tvTotalPrice, tvAllItemsTotal,
+            tvInvoiceCode, tvInvoiceDate, tvCartItems, tvItemTotal, tvMrStatus,
+            tvReceiptCustomerNames, tvReceiptCustomerPhone;
+    private AppCompatButton bMakePayment;
+    private MaterialRippleLayout mrStatus;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_bill_invoice_cashier);
+
+        Intent i = getIntent();
+        orderId = i.getIntExtra("orderId", 0);
+        cashierId = i.getIntExtra("cashierId", 0);
+
+        Log.d("NNN", "Order ID: " + orderId);
+        Log.d("NNN", "Cashier ID: " + cashierId);
+
+        tvTotalPrice = findViewById(R.id.tvTotalPrice);
+        tvAllItemsTotal = findViewById(R.id.tvAllItemsTotal);
+        tvInvoiceCode = findViewById(R.id.tvInvoiceCode);
+        tvInvoiceDate = findViewById(R.id.tvInvoiceDate);
+        tvCartItems = findViewById(R.id.tvCartItems);
+        tvItemTotal = findViewById(R.id.tvItemTotal);
+        tvMrStatus = findViewById(R.id.tvMrStatus);
+        tvReceiptCustomerNames = findViewById(R.id.tvReceiptCustomerNames);
+        tvReceiptCustomerPhone = findViewById(R.id.tvReceiptCustomerPhone);
+
+
+        mrStatus = findViewById(R.id.mrStatus);
+
+        remoteCallPDialog = new ProcessDialog(this);
+        remoteCallPDialog.setTouchCancel(false);
+        remoteCallPDialog.setCancelable(true);
+
+        acceptOrderPDialog = new ProcessDialog(this);
+        acceptOrderPDialog.setTouchCancel(false);
+        acceptOrderPDialog.setCancelable(true);
+
+        connectionFailureDialog = new ProcessDialog(this);
+        globalErrorDialog = new ProcessDialog(this);
+
+        bMakePayment = findViewById(R.id.bMakePayment);
+        bMakePayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                JSONObject orderDetails = new JSONObject();
+                try {
+                    orderDetails.put("orderId", orderId);
+                    orderDetails.put("cashierId", cashierId);
+                    orderDetails.put("status", "Awaiting Payment");
+
+
+                    acceptOrder(orderDetails.toString());
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+        getOrder();
+    }
+
+    private void getOrder() {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Constant.baseURL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .build();
+        final RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
+        final retrofit2.Call getIemtCall = retrofitInterface.getOrder(orderId);
+        remoteCallPDialog.showProcessingDialog("Getting order.. Please wait..");
+
+        remoteCallPDialog.setOnCloseDialogListener(new ProcessDialog.CloseDialogClickListener() {
+            @Override
+            public void onCloseDialogClick() {
+                remoteCallPDialog.setCancelable(true);
+                remoteCallPDialog.dismissDialog();
+                getIemtCall.cancel();
+
+            }
+        });
+        remoteCallPDialog.setOnBackPressedListener(new ProcessDialog.BackPressedListener() {
+            @Override
+            public void onBackPressedClick() {
+                remoteCallPDialog.setCancelable(true);
+                remoteCallPDialog.dismissDialog();
+                getIemtCall.cancel();
+            }
+        });
+
+        getIemtCall.enqueue(new retrofit2.Callback<ResponseBody>() {
+            @Override
+            public void onResponse(retrofit2.Call<ResponseBody> classCall, final Response<ResponseBody> netResponse) {
+
+                remoteCallPDialog.dismissDialog();
+
+                if (classCall.isCanceled()) {
+                    Log.d("NNN", "Network call cancelled");
+                } else {
+
+                    try {
+
+                        if (netResponse.isSuccessful()) {
+                            response = netResponse.body().string();
+                            Log.d("NNN", "Response: " + response);
+
+                        } else {
+                            response = netResponse.errorBody().string();
+                            Log.d("NNN", "Response: " + response);
+
+                        }
+
+                        JSONObject responseJObject = new JSONObject(response);
+                        JSONObject jsonObject = responseJObject.getJSONObject("message");
+
+                        businessOrder = new MBusinessOrder();
+                        businessOrder.setOrderCart(jsonObject.getString("cart"));
+                        JSONObject cart = new JSONObject(businessOrder.getOrderCart());
+                        businessOrder.setCustomerNames(jsonObject.getString("customerNames"));
+                        businessOrder.setCustomerPhone(jsonObject.getString("customerPhone"));
+                        businessOrder.setCustomerId(jsonObject.getInt("customerId"));
+                        businessOrder.setOrderDate(jsonObject.getString("orderDate"));
+                        businessOrder.setPaymentDate(jsonObject.getString("paymentDate"));
+                        businessOrder.setCashierId(jsonObject.getInt("cashierId"));
+                        businessOrder.setBusinessId(jsonObject.getInt("businessId"));
+                        businessOrder.setBusinessName(jsonObject.getString("businessName"));
+                        businessOrder.setStatus(jsonObject.getString("status"));
+
+                        tvTotalPrice.setText("ZMW " + cart.getString("total"));
+                        tvAllItemsTotal.setText("ZMW " + cart.getString("total"));
+                        tvInvoiceCode.setText(businessOrder.getInvoiceCode());
+                        tvInvoiceDate.setText(businessOrder.getOrderDate());
+                        tvCartItems.setText(cart.getString("quantity") + " " + cart.getString("productName") + " @ " + cart.getString("price"));
+                        tvItemTotal.setText(cart.getString("total"));
+
+                        tvReceiptCustomerNames.setText(jsonObject.getString("customerNames"));
+                        tvReceiptCustomerPhone.setText(jsonObject.getString("customerPhone"));
+
+                        if(businessOrder.getStatus().equals("Awaiting Confirmation")){
+                            mrStatus.setVisibility(View.GONE);
+                            bMakePayment.setVisibility(View.VISIBLE);
+                            bMakePayment.setText("Confirm Order");
+                            tvMrStatus.setText(businessOrder.getStatus());
+                        }else if(businessOrder.getStatus().equals("Awaiting Payment")){
+                            mrStatus.setVisibility(View.VISIBLE);
+                            tvMrStatus.setText(businessOrder.getStatus());
+                            bMakePayment.setVisibility(View.GONE);
+                        }else if(businessOrder.getStatus().equals("Complete")){
+                            mrStatus.setVisibility(View.VISIBLE);
+                            tvMrStatus.setText(businessOrder.getStatus());
+                            bMakePayment.setVisibility(View.GONE);
+
+                        }
+
+
+
+                    } catch (final Exception e) {
+                        remoteCallPDialog.dismissDialog();
+
+                        showErrorDialog(e);
+                        globalErrorDialog.setOnActionListener(new ProcessDialog.ActionClickListener() {
+                            @Override
+                            public void onActionClick() {
+                                globalErrorDialog.dismissDialog();
+                                getOrder();
+                            }
+                        });
+
+                        globalErrorDialog.setOnBackPressedListener(new ProcessDialog.BackPressedListener() {
+                            @Override
+                            public void onBackPressedClick() {
+                                globalErrorDialog.dismissDialog();
+                            }
+                        });
+
+                        globalErrorDialog.setOnCloseDialogListener(new ProcessDialog.CloseDialogClickListener() {
+                            @Override
+                            public void onCloseDialogClick() {
+                                globalErrorDialog.dismissDialog();
+
+                            }
+                        });
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<ResponseBody> classCall, Throwable t) {
+                if (classCall.isCanceled()) {
+                    Log.d("NNN", "Network call cancelled: ");
+                } else {
+                    remoteCallPDialog.dismissDialog();
+                    showConnectionFailureDialog(t);
+                    connectionFailureDialog.setOnActionListener(new ProcessDialog.ActionClickListener() {
+                        @Override
+                        public void onActionClick() {
+                            connectionFailureDialog.dismissDialog();
+                            getOrder();
+                        }
+                    });
+
+                    connectionFailureDialog.setOnBackPressedListener(new ProcessDialog.BackPressedListener() {
+                        @Override
+                        public void onBackPressedClick() {
+                            connectionFailureDialog.dismissDialog();
+                            onBackPressed();
+                        }
+                    });
+
+                    connectionFailureDialog.setOnCloseDialogListener(new ProcessDialog.CloseDialogClickListener() {
+                        @Override
+                        public void onCloseDialogClick() {
+                            connectionFailureDialog.dismissDialog();
+                            onBackPressed();
+
+                        }
+                    });
+                }
+            }
+
+        });
+    }
+
+    private void acceptOrder(String json) {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Constant.baseURL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .build();
+        final RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
+        final retrofit2.Call remoteCall = retrofitInterface.acceptOrder(json);
+        acceptOrderPDialog.showProcessingDialog("Accepting Order.. Please wait..");
+
+        acceptOrderPDialog.setOnCloseDialogListener(new ProcessDialog.CloseDialogClickListener() {
+            @Override
+            public void onCloseDialogClick() {
+                acceptOrderPDialog.setCancelable(true);
+                acceptOrderPDialog.dismissDialog();
+                remoteCall.cancel();
+
+            }
+        });
+        acceptOrderPDialog.setOnBackPressedListener(new ProcessDialog.BackPressedListener() {
+            @Override
+            public void onBackPressedClick() {
+                acceptOrderPDialog.setCancelable(true);
+                acceptOrderPDialog.dismissDialog();
+                remoteCall.cancel();
+            }
+        });
+
+        remoteCall.enqueue(new retrofit2.Callback<ResponseBody>() {
+            @Override
+            public void onResponse(retrofit2.Call<ResponseBody> classCall, final Response<ResponseBody> netResponse) {
+
+                acceptOrderPDialog.dismissDialog();
+
+                if (classCall.isCanceled()) {
+                    Log.d("NNN", "Network call cancelled");
+                } else {
+
+                    try {
+
+                        if (netResponse.isSuccessful()) {
+                            response = netResponse.body().string();
+                            Log.d("NNN", "Response: " + response);
+
+                        } else {
+                            response = netResponse.errorBody().string();
+                            Log.d("NNN", "Response Error: " + response);
+
+                        }
+
+                        JSONObject responseJObject = new JSONObject(response);
+                        boolean error = responseJObject.getBoolean("error");
+                        if (error) {
+
+                        } else {
+
+                            showSuccessDialog();
+
+                        }
+
+                    } catch (final Exception e) {
+                        acceptOrderPDialog.dismissDialog();
+
+                        showErrorDialog(e);
+                        globalErrorDialog.setOnActionListener(new ProcessDialog.ActionClickListener() {
+                            @Override
+                            public void onActionClick() {
+                                globalErrorDialog.dismissDialog();
+                            }
+                        });
+
+                        globalErrorDialog.setOnBackPressedListener(new ProcessDialog.BackPressedListener() {
+                            @Override
+                            public void onBackPressedClick() {
+                                globalErrorDialog.dismissDialog();
+                            }
+                        });
+
+                        globalErrorDialog.setOnCloseDialogListener(new ProcessDialog.CloseDialogClickListener() {
+                            @Override
+                            public void onCloseDialogClick() {
+                                globalErrorDialog.dismissDialog();
+
+                            }
+                        });
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<ResponseBody> classCall, Throwable t) {
+                if (classCall.isCanceled()) {
+                    Log.d("NNN", "Network call cancelled: ");
+                } else {
+                    acceptOrderPDialog.dismissDialog();
+                    showConnectionFailureDialog(t);
+                    connectionFailureDialog.setOnActionListener(new ProcessDialog.ActionClickListener() {
+                        @Override
+                        public void onActionClick() {
+                            connectionFailureDialog.dismissDialog();
+
+                        }
+                    });
+
+                    connectionFailureDialog.setOnBackPressedListener(new ProcessDialog.BackPressedListener() {
+                        @Override
+                        public void onBackPressedClick() {
+                            connectionFailureDialog.dismissDialog();
+                            onBackPressed();
+                        }
+                    });
+
+                    connectionFailureDialog.setOnCloseDialogListener(new ProcessDialog.CloseDialogClickListener() {
+                        @Override
+                        public void onCloseDialogClick() {
+                            connectionFailureDialog.dismissDialog();
+                            onBackPressed();
+
+                        }
+                    });
+                }
+            }
+
+        });
+    }
+
+    private void showSuccessDialog() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_info);
+        dialog.setCancelable(true);
+
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+        ((TextView) dialog.findViewById(R.id.title)).setText("Order Accepted");
+        ((TextView) dialog.findViewById(R.id.content)).setText("You have accepted the order successfully");
+
+        ((AppCompatButton) dialog.findViewById(R.id.bContinue)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(CashierOrderDetailsActivity.this, CashierOrderListActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
+                finish();
+
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+        dialog.getWindow().setAttributes(lp);
+    }
+
+    private void showErrorDialog(final Exception e) {
+        globalErrorDialog.showResponseDialog("An error occurred. Please try again or contact support if error persists.", "Try again");
+        globalErrorDialog.enableResponseViewBtn();
+        globalErrorDialog.setCancelable(true);
+        globalErrorDialog.setTouchCancel(false);
+
+        globalErrorDialog.setOnNetResponseListener(new ProcessDialog.NetResponseClickListener() {
+            @Override
+            public void onNetResponseClick() {
+                Log.d("NNN", "Response Button Clicked");
+                clickCount++;
+                if (clickCount == 6) {
+                    final ProcessDialog errorDialog = new ProcessDialog(CashierOrderDetailsActivity.this);
+                    errorDialog.showResponseDialog("Error: \n" + e.getLocalizedMessage(), "Close");
+                    errorDialog.setCancelable(true);
+                    errorDialog.setTouchCancel(false);
+                    errorDialog.setOnActionListener(new ProcessDialog.ActionClickListener() {
+                        @Override
+                        public void onActionClick() {
+                            errorDialog.dismissDialog();
+                            clickCount = 0;
+                        }
+                    });
+                    errorDialog.setOnCloseDialogListener(new ProcessDialog.CloseDialogClickListener() {
+                        @Override
+                        public void onCloseDialogClick() {
+                            errorDialog.dismissDialog();
+                            clickCount = 0;
+                        }
+                    });
+                    errorDialog.setOnBackPressedListener(new ProcessDialog.BackPressedListener() {
+                        @Override
+                        public void onBackPressedClick() {
+                            errorDialog.dismissDialog();
+                            clickCount = 0;
+                        }
+                    });
+
+                }
+            }
+        });
+
+    }
+
+    private void showConnectionFailureDialog(final Throwable t) {
+        connectionFailureDialog.showResponseDialog("There seems to be a problem with the connection. Please try again or contact support if problem persists.", "Try again");
+        connectionFailureDialog.enableResponseViewBtn();
+        connectionFailureDialog.setCancelable(true);
+        connectionFailureDialog.setTouchCancel(false);
+
+        connectionFailureDialog.setOnNetResponseListener(new ProcessDialog.NetResponseClickListener() {
+            @Override
+            public void onNetResponseClick() {
+                Log.d("NNN", "Response Button Clicked");
+                clickCount++;
+                if (clickCount == 6) {
+                    final ProcessDialog errorDialog = new ProcessDialog(CashierOrderDetailsActivity.this);
+                    errorDialog.showResponseDialog("Error: \n" + t.getLocalizedMessage(), "Close");
+                    errorDialog.setCancelable(true);
+                    errorDialog.setTouchCancel(false);
+                    errorDialog.setOnActionListener(new ProcessDialog.ActionClickListener() {
+                        @Override
+                        public void onActionClick() {
+                            errorDialog.dismissDialog();
+                            clickCount = 0;
+                        }
+                    });
+                    errorDialog.setOnCloseDialogListener(new ProcessDialog.CloseDialogClickListener() {
+                        @Override
+                        public void onCloseDialogClick() {
+                            errorDialog.dismissDialog();
+                            clickCount = 0;
+                        }
+                    });
+                    errorDialog.setOnBackPressedListener(new ProcessDialog.BackPressedListener() {
+                        @Override
+                        public void onBackPressedClick() {
+                            errorDialog.dismissDialog();
+                            clickCount = 0;
+                        }
+                    });
+
+                }
+            }
+        });
+    }
+
+
+}
